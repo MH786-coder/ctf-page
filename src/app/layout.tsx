@@ -10,7 +10,7 @@ import HackerCursor from '@/components/HackerCursor';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'CTF Challenges',
+    title: 'ProWorldz - CTF',
     description: 'The next-generation cybersecurity developer platform. Deploy, automate, and protect at the edge.',
 };
 

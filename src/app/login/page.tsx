@@ -82,7 +82,7 @@ export default function LoginPage() {
                     {/* User Field */}
                     <div className="flex flex-col gap-2">
                         <label className="text-xs font-bold text-[#cbd5e1] uppercase tracking-wider flex items-center gap-2">
-                            <User size={14} className="text-hacker-green" /> Student ID / Username
+                            <User size={14} className="text-hacker-green" /> Username
                         </label>
                         <input
                             type="text"
@@ -97,7 +97,7 @@ export default function LoginPage() {
                     {/* Password Field */}
                     <div className="flex flex-col gap-2">
                         <label className="text-xs font-bold text-[#cbd5e1] uppercase tracking-wider flex items-center gap-2">
-                            <KeyRound size={14} className="text-hacker-green" /> Decryption Key
+                            <KeyRound size={14} className="text-hacker-green" /> Password
                         </label>
                         <input
                             type="password"

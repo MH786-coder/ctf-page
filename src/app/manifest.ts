@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'CTF Challenges',
+        name: 'ProWorldz - CTF',
         short_name: 'CTF',
         description: 'The next-generation cybersecurity developer platform',
         start_url: '/',
