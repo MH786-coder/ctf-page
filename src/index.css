@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@300;400;600;700&display=swap');
+
+:root {
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --primary: #00FF41;
+  --primary-glow: rgba(0, 255, 65, 0.4);
+  --border: #262626;
+  --card: #0A0A0A;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+    font-family: 'Space Grotesk', sans-serif;
+    /* Brutalist Grid Background */
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'JetBrains Mono', monospace;
+    @apply font-bold uppercase tracking-tighter;
+  }
+}
+
+@layer components {
+
+  /* Brutalist Glass Card */
+  .brutalist-card {
+    @apply border border-hacker-border bg-hacker-gray/60 backdrop-blur-md p-6 transition-all duration-300;
+  }
+
+  .brutalist-card:hover {
+    @apply border-hacker-green shadow-[5px_5px_0px_#00FF41];
+  }
+
+  /* Neon Glow Button */
+  .neon-button {
+    @apply border border-hacker-green px-8 py-3 font-mono text-xs font-bold uppercase tracking-widest text-hacker-green transition-all hover:bg-hacker-green hover:text-black hover:shadow-[0_0_20px_#00FF41];
+  }
+
+  /* Status Blink */
+  .status-dot {
+    @apply h-2 w-2 rounded-full bg-hacker-green shadow-[0_0_8px_#00FF41] animate-pulse;
+  }
+
+  /* Scanline Overlay */
+  .scanline {
+    @apply fixed inset-0 z-[100] pointer-events-none opacity-[0.03];
+    background: linear-gradient(to bottom, transparent 50%, #00FF41 50%);
+    background-size: 100% 4px;
+    animation: scanline 10s linear infinite;
+  }
+}
+
+@keyframes scanline {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 100%;
+  }
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00FF41;
+}
+
+/* ============================================
+   HACKER CURSOR — Desktop Only (≥1024px)
+   ============================================ */
+
+/* Hide the OS cursor when the custom cursor component is active */
+@media (min-width: 1024px) and (pointer: fine) {
+
+  html.hacker-cursor-active,
+  html.hacker-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Click ripple animation for the custom cursor */
+@keyframes cursor-ripple {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}

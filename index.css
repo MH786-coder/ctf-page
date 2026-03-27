@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --background: #0b0f14;
+  --foreground: #ffffff;
+  --primary: #00ff66;
+  --primary-glow: rgba(0, 255, 102, 0.4);
+  --secondary: #111820;
+  --hacker-green: #00ff66;
+  --hacker-border: #1a232f;
+  --panel-bg: rgba(17, 24, 32, 0.85);
+  /* Dark gradient panel approximation */
+  --grid-color: rgba(255, 255, 255, 0.05);
+}
+
+@layer base {
+  body {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+    font-family: 'Poppins', sans-serif !important;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Tech Grid Background Pattern */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -10;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 30px 30px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  /* Subtle Dotted Background overlay */
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -20;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 15px 15px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-style: normal !important;
+    background: none !important;
+    -webkit-text-fill-color: var(--foreground) !important;
+    color: var(--foreground) !important;
+  }
+
+  p {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-weight: 400 !important;
+    color: #cbd5e1 !important;
+    /* light gray */
+    font-family: 'Poppins', sans-serif !important;
+  }
+}
+
+@layer components {
+
+  /* Common class overrides */
+  .bg-hacker-green {
+    background-color: var(--primary) !important;
+  }
+
+  .text-hacker-green {
+    color: var(--primary) !important;
+  }
+
+  .border-hacker-green {
+    border-color: var(--primary) !important;
+  }
+
+  .border-hacker-border {
+    border-color: var(--hacker-border) !important;
+  }
+
+  /* Reset background black explicitly used in hardcoded classes so widgets don't break */
+  .bg-black {
+    background-color: transparent !important;
+  }
+
+  /* Cards / Containers / Sections */
+  div[class*="bg-black"],
+  div[class*="bg-hacker-gray"],
+  div[class*="bg-[#05130A]"],
+  section[class*="bg-hacker-gray"],
+  section[class*="border-hacker-border"] {
+    background: linear-gradient(145deg, rgba(17, 24, 32, 0.95), rgba(11, 15, 20, 0.9)) !important;
+    /* Dark gradient panels */
+    backdrop-filter: blur(12px) !important;
+    /* Dark glassmorphism */
+    border: 1px solid var(--hacker-border) !important;
+    border-radius: 16px !important;
+    /* Rounded corners */
+    clip-path: none !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Hover Lift & Soft Green Border Glow on Cards */
+  div[class*="group"]:hover {
+    border-color: rgba(0, 255, 102, 0.5) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.15) !important;
+    transform: translateY(-4px) !important;
+  }
+
+  /* Clean Buttons strictly following the theme */
+  button {
+    border-radius: 8px !important;
+    text-transform: capitalize !important;
+    letter-spacing: normal !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    transition: all 0.3s ease !important;
+    clip-path: none !important;
+    font-family: 'Poppins', sans-serif !important;
+  }
+
+  /* Neon Green Primary Button */
+  button[class*="bg-hacker-white"],
+  button[class*="bg-white"] {
+    background-color: var(--primary) !important;
+    color: #0b0f14 !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0, 255, 102, 0.25) !important;
+  }
+
+  button[class*="bg-hacker-white"]:hover,
+  button[class*="bg-white"]:hover {
+    background-color: #00e65c !important;
+    box-shadow: 0 6px 20px rgba(0, 255, 102, 0.5) !important;
+    /* Glow hover animation */
+    color: #0b0f14 !important;
+  }
+
+  /* Outline Secondary Button */
+  button[class*="bg-white/5"],
+  button[class*="border-white"] {
+    background-color: transparent !important;
+    color: var(--foreground) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: none !important;
+  }
+
+  button[class*="bg-white/5"]:hover,
+  button[class*="border-white"]:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: var(--primary) !important;
+    /* Green glow border on hover */
+    color: var(--primary) !important;
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.2) !important;
+  }
+
+  /* Forms - Minimal futuristic style */
+  input,
+  textarea,
+  select {
+    background-color: rgba(17, 24, 32, 0.8) !important;
+    /* Dark input fields */
+    border: 1px solid var(--hacker-border) !important;
+    border-radius: 8px !important;
+    color: var(--foreground) !important;
+    padding: 0.75rem 1rem !important;
+    font-family: 'Poppins', sans-serif !important;
+    transition: all 0.3s ease !important;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none !important;
+    border-color: var(--primary) !important;
+    /* Green focus border */
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.2) !important;
+  }
+
+  /* Disable scanlines & text glitches from previous iterations */
+  .scanline,
+  div[class*="group"]::before,
+  div[class*="group"]::after {
+    display: none !important;
+  }
+
+  /* Icons with green accent */
+  svg.lucide {
+    stroke: var(--primary) !important;
+    /* Line icons with green accent globally */
+    opacity: 0.9;
+  }
+
+  /* Divider lines with green glow */
+  hr,
+  .border-b,
+  .border-t,
+  .border-l,
+  .border-r {
+    border-color: rgba(0, 255, 102, 0.15) !important;
+  }
+
+  /* Allow specific hardcoded borders that had green to maintain more glow */
+  [class*="border-hacker-green"] {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.3) !important;
+  }
+}
+
+/* Profiles override */
+[class*="border-[#FB3640]"],
+[class*="border-[#122B1E]"] {
+  border-color: rgba(0, 255, 102, 0.2) !important;
+}
+
+[class*="text-[#FB3640]"] {
+  color: var(--primary) !important;
+}
+
+[class*="bg-[#FB3640]"] {
+  background-color: var(--primary) !important;
+}
+
+/* Force Terminal & Code Monospace while stripping intense caps/spacing */
+*[class*="font-mono"],
+.font-mono * {
+  font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  color: #a3b8cc !important;
+  /* Slightly distinct for mono text */
+}
+
+.text-hacker-green,
+.text-hacker-green * {
+  color: var(--primary) !important;
+}
+
+/* Remove hardcoded background glows across standard items */
+[class*="shadow-[0_0_50px_"],
+[class*="shadow-[0_0_100px_"] {
+  box-shadow: none !important;
+}
+
+/* Custom Cursor */
+.hacker-cursor {
+  background-color: var(--primary) !important;
+  box-shadow: 0 0 15px var(--primary) !important;
+  border-radius: 50% !important;
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a232f;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
