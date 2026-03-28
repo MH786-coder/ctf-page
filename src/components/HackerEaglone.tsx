@@ -6,13 +6,13 @@ import { Terminal, X, Volume2, MessageSquare, ChevronRight } from 'lucide-react'
 import { usePathname } from 'next/navigation';
 
 const TIPS = [
-    "SECURITY_ALERT: Always use environment variables for sensitive keys.",
-    "INTEL: Supabase RLS policies are your first line of defense.",
-    "RECON: Use the Network Tab to inspect API payloads for leaked data.",
-    "PROTOCOL: Sanitize all user inputs to prevent XSS injections.",
-    "ENCRYPTION: Never store raw passwords. Use BCrypt or Argon2.",
-    "STRATEGY: Minimize your attack surface by disabling unused ports.",
-    "MISSION: Keep your dependencies updated to patch known CVEs."
+    "INTEL: High-priority targets detected in the encrypted sector.",
+    "RECON: Analyze the node headers for signature patterns.",
+    "SECURITY: A brute-force attempt was detected and neutralized.",
+    "PROTOCOL: The back-channel tunnel is currently secure.",
+    "STRATEGY: Minimize your footprint to avoid firewall detection.",
+    "MISSION: Intercept the secondary data-stream for key intel.",
+    "ALERTL: Passive reconnaissance indicates a vulnerability in the outer perimeter."
 ];
 
 export default function HackerEaglone() {
@@ -50,9 +50,10 @@ export default function HackerEaglone() {
             const utterance = new SpeechSynthesisUtterance("HI I am hacker eaglone. I am here to guide you through the terminal.");
             // Find a robotic/high-tech sounding voice if possible
             const voices = window.speechSynthesis.getVoices();
-            utterance.voice = voices.find(v => v.name.includes('Google') || v.name.includes('Robotic')) || voices[0];
-            utterance.pitch = 0.8;
-            utterance.rate = 0.9;
+            // Look for a deep male voice like Google UK English Male or Microsoft David
+            utterance.voice = voices.find(v => (v.name.includes('Male') || v.name.includes('David')) && v.lang.includes('en')) || voices[0];
+            utterance.pitch = 0.5; // Deep voice
+            utterance.rate = 0.85; // Slightly slower, more commanding
             window.speechSynthesis.speak(utterance);
         }
     };
