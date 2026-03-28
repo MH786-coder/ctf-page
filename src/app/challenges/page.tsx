@@ -26,7 +26,7 @@ export default function ChallengesPage() {
     const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
-        const uid = localStorage.getItem('ctf_user_id');
+        const uid = sessionStorage.getItem('ctf_user_id');
         if (!uid) {
             router.push('/login');
             return;

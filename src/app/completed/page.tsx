@@ -15,9 +15,9 @@ export default function CompletedPage() {
     const [stats, setStats] = useState({ count: 0, score: 0 });
 
     useEffect(() => {
-        // Authenticate via local session for simple setup
-        const userId = localStorage.getItem('ctf_user_id');
-        const userStr = localStorage.getItem('ctf_username');
+        // Authenticate via session for simple setup
+        const userId = sessionStorage.getItem('ctf_user_id');
+        const userStr = sessionStorage.getItem('ctf_username');
 
         if (!userId) {
             router.push('/login');
@@ -86,8 +86,8 @@ export default function CompletedPage() {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('ctf_user_id');
-        localStorage.removeItem('ctf_username');
+        sessionStorage.removeItem('ctf_user_id');
+        sessionStorage.removeItem('ctf_username');
         router.push('/login');
     };
 

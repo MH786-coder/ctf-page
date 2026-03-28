@@ -26,8 +26,8 @@ export default function AdminDashboard() {
     const [actionLoading, setActionLoading] = useState(false);
 
     useEffect(() => {
-        const role = localStorage.getItem('ctf_role');
-        const aid = localStorage.getItem('ctf_user_id');
+        const role = sessionStorage.getItem('ctf_role');
+        const aid = sessionStorage.getItem('ctf_user_id');
 
         if (role !== 'admin' || !aid) {
             router.push('/challenges');

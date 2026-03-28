@@ -11,16 +11,16 @@ export default function Navbar() {
     const pathname = usePathname();
 
     React.useEffect(() => {
-        const userId = localStorage.getItem('ctf_user_id');
-        const role = localStorage.getItem('ctf_role');
+        const userId = sessionStorage.getItem('ctf_user_id');
+        const role = sessionStorage.getItem('ctf_role');
         setIsLoggedIn(!!userId);
         setIsAdmin(role === 'admin');
-    }, []);
+    }, [pathname]);
 
     const handleLogout = () => {
-        localStorage.removeItem('ctf_user_id');
-        localStorage.removeItem('ctf_username');
-        localStorage.removeItem('ctf_role');
+        sessionStorage.removeItem('ctf_user_id');
+        sessionStorage.removeItem('ctf_username');
+        sessionStorage.removeItem('ctf_role');
         window.location.href = '/login';
     };
 

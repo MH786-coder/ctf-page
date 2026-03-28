@@ -41,9 +41,9 @@ export default function LoginPage() {
                 }
 
                 // Store session safely
-                localStorage.setItem('ctf_user_id', resp.user_id);
-                localStorage.setItem('ctf_username', resp.username);
-                localStorage.setItem('ctf_role', resp.role);
+                sessionStorage.setItem('ctf_user_id', resp.user_id);
+                sessionStorage.setItem('ctf_username', resp.username);
+                sessionStorage.setItem('ctf_role', resp.role);
 
                 // Route students to challenges
                 router.push('/challenges');
