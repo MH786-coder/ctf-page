@@ -85,7 +85,7 @@ export default function CyberAI() {
                         initial={{ opacity: 0, y: 100, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.95 }}
-                        className="fixed bottom-8 right-8 z-[160] w-[450px] h-[650px] border border-hacker-green/30 bg-black backdrop-blur-3xl shadow-[0_0_50px_rgba(0,255,65,0.1)] flex flex-col font-mono overflow-hidden"
+                        className="fixed bottom-8 right-8 z-[160] w-[450px] h-[650px] border border-hacker-green/30 bg-black/95 shadow-[0_0_50px_rgba(0,255,65,0.1)] flex flex-col font-mono overflow-hidden"
                     >
                         {/* Header */}
                         <div className="bg-hacker-gray border-b border-hacker-border p-6 flex justify-between items-center group">

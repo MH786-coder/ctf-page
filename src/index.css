@@ -37,7 +37,7 @@
 
   /* Brutalist Glass Card */
   .brutalist-card {
-    @apply border border-hacker-border bg-hacker-gray/60 backdrop-blur-md p-6 transition-all duration-300;
+    @apply border border-hacker-border bg-hacker-gray/80 p-6 transition-all duration-300;
   }
 
   .brutalist-card:hover {

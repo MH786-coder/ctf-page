@@ -104,7 +104,7 @@ export default function Terminal() {
                         animate={{ y: 0 }}
                         exit={{ y: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 150 }}
-                        className="fixed inset-x-0 bottom-0 z-[200] h-[450px] border-t-4 border-hacker-green bg-black/95 backdrop-blur-3xl shadow-[0_-50px_80px_rgba(0,255,65,0.1)] flex flex-col font-mono"
+                        className="fixed inset-x-0 bottom-0 z-[200] h-[450px] border-t-4 border-hacker-green bg-black/95 shadow-[0_-50px_80px_rgba(0,255,65,0.1)] flex flex-col font-mono"
                     >
                         {/* Console Header */}
                         <div className="bg-hacker-gray border-b border-hacker-border px-8 py-3 flex justify-between items-center group">
