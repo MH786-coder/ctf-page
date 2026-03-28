@@ -51,10 +51,10 @@ export default function HackerEaglone() {
             window.speechSynthesis.cancel(); // Stop previous speech
             const utterance = new SpeechSynthesisUtterance(text);
             const voices = window.speechSynthesis.getVoices();
-            // Look for a deep male voice like Google UK English Male or Microsoft David
-            utterance.voice = voices.find(v => (v.name.includes('Male') || v.name.includes('David')) && v.lang.includes('en')) || voices[0];
-            utterance.pitch = 0.5; // Deep voice
-            utterance.rate = 0.85; // Slightly slower, more commanding
+            // Look for a bold human-sounding voice
+            utterance.voice = voices.find(v => (v.name.includes('Male') || v.name.includes('Bold') || v.name.includes('David')) && v.lang.includes('en')) || voices[0];
+            utterance.pitch = 1.0; // Normal human-like pitch
+            utterance.rate = 1.0; // Normal human-like speed
             window.speechSynthesis.speak(utterance);
         }
     };
@@ -69,7 +69,7 @@ export default function HackerEaglone() {
         } else if (nextCount === 2) {
             speak("Hey what you want? Just explore and finish ctf tasks dont touch me again");
         } else {
-            speak("hey dont disturb me while laughing. Ha ha ha ha ha");
+            speak("hey dont distrub me ha ha ha ha ha");
         }
     };
 
