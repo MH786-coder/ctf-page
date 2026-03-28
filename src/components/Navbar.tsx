@@ -70,12 +70,14 @@ export default function Navbar() {
                 {/* Call to Action */}
                 <div className="flex items-center gap-6 w-[160px] justify-end">
                     {!isLoggedIn ? (
-                        <button
-                            onClick={() => window.location.href = '/login'}
-                            className="bg-hacker-white text-hacker-black px-6 py-2 text-[14px] font-medium transition-all hover:bg-hacker-green shadow-[0_0_15px_rgba(0,255,102,0.2)] rounded-lg"
-                        >
-                            Authorize
-                        </button>
+                        pathname === '/' && (
+                            <button
+                                onClick={() => window.location.href = '/login'}
+                                className="bg-hacker-white text-hacker-black px-6 py-2 text-[14px] font-medium transition-all hover:bg-hacker-green shadow-[0_0_15px_rgba(0,255,102,0.2)] rounded-lg"
+                            >
+                                Authorize
+                            </button>
+                        )
                     ) : (
                         <button
                             onClick={handleLogout}
