@@ -18,6 +18,7 @@ const TIPS = [
 export default function HackerEaglone() {
     const [isVisible, setIsVisible] = useState(false);
     const [isThinking, setIsThinking] = useState(false);
+    const [clickCount, setClickCount] = useState(0);
     const [currentTip, setCurrentTip] = useState(TIPS[0]);
     const [showBubble, setShowBubble] = useState(false);
     const pathname = usePathname();
@@ -45,10 +46,10 @@ export default function HackerEaglone() {
         checkAuth();
     }, [pathname]);
 
-    const greet = () => {
+    const speak = (text: string) => {
         if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance("HI I am hacker eaglone. I am here to guide you through the terminal.");
-            // Find a robotic/high-tech sounding voice if possible
+            window.speechSynthesis.cancel(); // Stop previous speech
+            const utterance = new SpeechSynthesisUtterance(text);
             const voices = window.speechSynthesis.getVoices();
             // Look for a deep male voice like Google UK English Male or Microsoft David
             utterance.voice = voices.find(v => (v.name.includes('Male') || v.name.includes('David')) && v.lang.includes('en')) || voices[0];
@@ -56,6 +57,24 @@ export default function HackerEaglone() {
             utterance.rate = 0.85; // Slightly slower, more commanding
             window.speechSynthesis.speak(utterance);
         }
+    };
+
+    const handleCharacterClick = () => {
+        const nextCount = clickCount + 1;
+        setClickCount(nextCount);
+        setShowBubble(true);
+
+        if (nextCount === 1) {
+            speak("hi I am hacker eaglone how are you");
+        } else if (nextCount === 2) {
+            speak("Hey what you want? Just explore and finish ctf tasks dont touch me again");
+        } else {
+            speak("hey dont disturb me while laughing. Ha ha ha ha ha");
+        }
+    };
+
+    const greet = () => {
+        speak("HI I am hacker eaglone. I am here to guide you through the terminal.");
     };
 
     const nextTip = () => {
@@ -89,7 +108,7 @@ export default function HackerEaglone() {
                         ease: "easeInOut"
                     }}
                     className="cursor-pointer"
-                    onClick={() => setShowBubble(!showBubble)}
+                    onClick={handleCharacterClick}
                 >
                     {/* Character Image */}
                     <div className="relative w-32 h-32 md:w-40 md:h-40">
