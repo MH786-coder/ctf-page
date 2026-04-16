@@ -257,7 +257,7 @@ export default function AdminDashboard() {
                         onClick={() => {
                             sessionStorage.removeItem('ctf_role');
                             sessionStorage.removeItem('ctf_user_id');
-                            router.push('/login');
+                            router.push('/admin-login');
                         }}
                         className="flex items-center gap-2 bg-white/5 text-[#cbd5e1] border border-white/10 px-6 py-3 rounded-lg hover:bg-white/10 transition-all font-bold text-sm"
                     >
