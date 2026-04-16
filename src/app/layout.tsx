@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={`${inter.className} bg-black text-white min-h-screen relative overflow-x-hidden`}>
+            <body className={`${inter.className} bg-black textmake-white min-h-screen relative overflow-x-hidden`}>
                 {/* Ambient Grid Header/Background Overlay */}
                 <div className="absolute inset-0 pointer-events-none -z-10 opacity-[0.4]">
                     <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-hacker-green/5 to-transparent"></div>

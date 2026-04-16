@@ -311,9 +311,13 @@ export default function ChallengesPage() {
                                 </div>
 
                                 <div className="flex flex-wrap gap-4">
-                                    <button className="flex items-center gap-3 bg-white/5 text-white border border-white/10 hover:border-hacker-green hover:text-hacker-green px-6 py-3 rounded-lg font-medium transition-all">
+                                    <a
+                                        href={`/challenges/${selectedTool.title.toLowerCase().replace(/ /g, '-')}.zip`}
+                                        download
+                                        className="flex items-center gap-3 bg-white/5 text-white border border-white/10 hover:border-hacker-green hover:text-hacker-green px-6 py-3 rounded-lg font-medium transition-all"
+                                    >
                                         <Download size={18} /> Download Target Data
-                                    </button>
+                                    </a>
                                 </div>
 
                                 {/* Flag Submission */}

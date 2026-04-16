@@ -223,9 +223,13 @@ export default function ArenaPage() {
                                     )}
 
                                     <div className="flex gap-4">
-                                        <button className="flex items-center gap-2 border border-[#122B1E] bg-[#05130A] px-6 py-3 font-mono text-xs font-bold text-[#F4F6F5] hover:border-[#FB3640] transition-colors">
+                                        <a
+                                            href={`/challenges/${selectedChallenge.title.toLowerCase().replace(/ /g, '-')}.zip`}
+                                            download
+                                            className="flex items-center gap-2 border border-[#122B1E] bg-[#05130A] px-6 py-3 font-mono text-xs font-bold text-[#F4F6F5] hover:border-[#FB3640] transition-colors"
+                                        >
                                             <Terminal size={16} /> DOWNLOAD_TARGET
-                                        </button>
+                                        </a>
                                     </div>
 
                                     {/* Submission */}
