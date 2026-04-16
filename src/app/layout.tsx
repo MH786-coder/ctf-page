@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import CyberAI from '@/components/CyberAI';
 import Terminal from '@/components/Terminal';
 import HackerCursor from '@/components/HackerCursor';
+import HackerEaglone from '@/components/HackerEaglone';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -41,6 +42,7 @@ export default function RootLayout({
                 <Terminal />
 
                 <HackerCursor />
+                <HackerEaglone />
             </body>
         </html>
     );

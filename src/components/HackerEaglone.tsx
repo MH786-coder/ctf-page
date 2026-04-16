@@ -31,7 +31,8 @@ export default function HackerEaglone() {
 
             // Only show on private pages after login
             const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/';
-            setIsVisible(loggedIn && !isAuthPage);
+            const isAdminPage = pathname?.startsWith('/admin');
+            setIsVisible(loggedIn && !isAuthPage && !isAdminPage);
 
             if (loggedIn && !isAuthPage && !hasGreeted.current) {
                 // Delay greeting to feel more natural
