@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldAlert, Users, Server, Terminal, Trash2, Edit, Plus, X, Laptop2, Fingerprint } from 'lucide-react';
+import { ShieldAlert, Users, Server, Terminal, Trash2, Edit, Plus, X, Laptop2, Fingerprint, LogOut, Loader2, FolderArchive } from 'lucide-react';
 
 export default function AdminDashboard() {
     const router = useRouter();
@@ -24,6 +24,13 @@ export default function AdminDashboard() {
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
+
+    // Challenge Form States
+    const [showAddChallenge, setShowAddChallenge] = useState(false);
+    const [challengeTitle, setChallengeTitle] = useState('');
+    const [challengeDesc, setChallengeDesc] = useState('');
+    const [challengeFlag, setChallengeFlag] = useState('');
+    const [challengeFile, setChallengeFile] = useState<File | null>(null);
 
     useEffect(() => {
         const role = sessionStorage.getItem('ctf_role');
@@ -149,6 +156,47 @@ export default function AdminDashboard() {
         }
     };
 
+    const handleAddChallenge = async () => {
+        if (!challengeTitle || !challengeDesc || !challengeFlag || !challengeFile) {
+            alert('Title, Description, Flag and ZIP File are required');
+            return;
+        }
+        setActionLoading(true);
+        try {
+            const formData = new FormData();
+            formData.append('title', challengeTitle);
+            formData.append('file', challengeFile);
+            const res = await fetch('/api/admin/challenge', {
+                method: 'POST',
+                body: formData
+            });
+            if (!res.ok) throw new Error('File upload failed');
+
+            const { error: dbErr } = await supabase.from('ctf_challenges').insert({
+                title: challengeTitle,
+                category: 'Custom',
+                difficulty: 'MEDIUM',
+                score: 100,
+                points_xp: '100',
+                description: challengeDesc,
+                flag: challengeFlag
+            });
+            if (dbErr) throw dbErr;
+
+            setShowAddChallenge(false);
+            setChallengeTitle('');
+            setChallengeDesc('');
+            setChallengeFlag('');
+            setChallengeFile(null);
+            alert('Challenge added successfully!');
+        } catch (err: any) {
+            console.error(err);
+            alert('Failed to add challenge: ' + err.message);
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
     const handleRemoveStudent = async (id: string, name: string) => {
         if (!confirm(`Warning: Delete Operative ${name}? This action is permanent.`)) return;
 
@@ -192,12 +240,30 @@ export default function AdminDashboard() {
                         Global Operational Overview. Full manipulation authority granted.
                     </p>
                 </div>
-                <button
-                    onClick={() => { setShowAddModal(true); setUsernameInput(''); setPasswordInput(''); }}
-                    className="flex items-center gap-2 bg-red-500/10 text-red-400 border border-red-500/30 px-6 py-3 rounded-lg hover:bg-red-500/20 transition-all font-bold text-sm"
-                >
-                    <Plus size={16} /> Deploy Operative
-                </button>
+                <div className="flex flex-wrap gap-4 mt-4 md:mt-0">
+                    <button
+                        onClick={() => { setShowAddChallenge(true); }}
+                        className="flex items-center gap-2 bg-green-500/10 text-green-400 border border-green-500/30 px-6 py-3 rounded-lg hover:bg-green-500/20 transition-all font-bold text-sm"
+                    >
+                        <FolderArchive size={16} /> Add Challenge
+                    </button>
+                    <button
+                        onClick={() => { setShowAddModal(true); setUsernameInput(''); setPasswordInput(''); }}
+                        className="flex items-center gap-2 bg-red-500/10 text-red-400 border border-red-500/30 px-6 py-3 rounded-lg hover:bg-red-500/20 transition-all font-bold text-sm"
+                    >
+                        <Plus size={16} /> Deploy Operative
+                    </button>
+                    <button
+                        onClick={() => {
+                            sessionStorage.removeItem('ctf_role');
+                            sessionStorage.removeItem('ctf_user_id');
+                            router.push('/login');
+                        }}
+                        className="flex items-center gap-2 bg-white/5 text-[#cbd5e1] border border-white/10 px-6 py-3 rounded-lg hover:bg-white/10 transition-all font-bold text-sm"
+                    >
+                        <LogOut size={16} /> Logout
+                    </button>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -324,6 +390,68 @@ export default function AdminDashboard() {
                                 className="mt-4 w-full bg-red-500 text-black font-bold tracking-widest uppercase text-xs py-3 rounded hover:bg-red-400 transition-colors"
                             >
                                 {actionLoading ? 'Compiling...' : 'EXECUTE'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modals for Add Challenge */}
+            {showAddChallenge && (
+                <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="bg-[#0b0f14] border border-green-500/30 w-full max-w-md rounded-xl overflow-hidden">
+                        <div className="p-5 border-b border-green-500/20 flex justify-between items-center">
+                            <h3 className="text-green-400 font-bold tracking-widest font-mono text-sm uppercase">
+                                + ADD NEW CHALLENGE
+                            </h3>
+                            <button onClick={() => setShowAddChallenge(false)} className="text-green-500/50 hover:text-green-500">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6 flex flex-col gap-4 border-l-4 border-l-green-500">
+                            <div className="flex flex-col gap-2">
+                                <label className="text-[10px] text-white/50 uppercase font-mono">Title</label>
+                                <input
+                                    value={challengeTitle} onChange={e => setChallengeTitle(e.target.value)}
+                                    className="bg-black border border-white/10 p-3 rounded text-sm text-white focus:border-green-400 outline-none font-mono"
+                                    placeholder="e.g. Memory Dump 2"
+                                />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <label className="text-[10px] text-white/50 uppercase font-mono">Description</label>
+                                <textarea
+                                    value={challengeDesc} onChange={e => setChallengeDesc(e.target.value)}
+                                    className="bg-black border border-white/10 p-3 rounded text-sm text-white focus:border-green-400 outline-none font-mono min-h-[80px]"
+                                    placeholder="Find the hidden key..."
+                                />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <label className="text-[10px] text-white/50 uppercase font-mono">Flag</label>
+                                <input
+                                    value={challengeFlag} onChange={e => setChallengeFlag(e.target.value)}
+                                    className="bg-black border border-white/10 p-3 rounded text-sm text-white focus:border-green-400 outline-none font-mono"
+                                    placeholder="FLAG{secret_word}"
+                                />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <label className="text-[10px] text-white/50 uppercase font-mono">ZIP File Upload (.zip recommended)</label>
+                                <input
+                                    type="file"
+                                    accept=".zip"
+                                    onChange={e => {
+                                        if (e.target.files && e.target.files.length > 0) {
+                                            setChallengeFile(e.target.files[0]);
+                                        }
+                                    }}
+                                    className="bg-black border border-white/10 p-3 rounded text-sm text-white focus:border-green-400 outline-none font-mono"
+                                />
+                            </div>
+                            <button
+                                onClick={handleAddChallenge}
+                                disabled={actionLoading}
+                                className="mt-4 w-full flex items-center justify-center gap-2 bg-green-500 text-black font-bold tracking-widest uppercase text-xs py-3 rounded hover:bg-green-400 transition-colors disabled:opacity-50"
+                            >
+                                {actionLoading ? <Loader2 size={16} className="animate-spin" /> : 'DEPLOY CHALLENGE'}
                             </button>
                         </div>
                     </div>
