@@ -311,13 +311,24 @@ export default function ChallengesPage() {
                                 </div>
 
                                 <div className="flex flex-wrap gap-4">
-                                    <a
-                                        href={`/challenges/${selectedTool.title.toLowerCase().replace(/ /g, '-')}.zip`}
-                                        download
-                                        className="flex items-center gap-3 bg-white/5 text-white border border-white/10 hover:border-hacker-green hover:text-hacker-green px-6 py-3 rounded-lg font-medium transition-all"
-                                    >
-                                        <Download size={18} /> Download Target Data
-                                    </a>
+                                    {selectedTool.category === 'Web Exploitation' ? (
+                                        <a
+                                            href={`/challenges/web/${selectedTool.title.toLowerCase().replace(/ /g, '-')}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-3 bg-hacker-green/10 text-hacker-green border border-hacker-green/30 hover:bg-hacker-green hover:text-black px-6 py-3 rounded-lg font-medium transition-all shadow-[0_0_15px_rgba(0,255,102,0.1)] hover:shadow-[0_0_20px_rgba(0,255,102,0.3)]"
+                                        >
+                                            <Zap size={18} /> Launch Live Challenge
+                                        </a>
+                                    ) : (
+                                        <a
+                                            href={`/challenges/${selectedTool.title.toLowerCase().replace(/ /g, '-')}.zip`}
+                                            download
+                                            className="flex items-center gap-3 bg-white/5 text-white border border-white/10 hover:border-hacker-green hover:text-hacker-green px-6 py-3 rounded-lg font-medium transition-all"
+                                        >
+                                            <Download size={18} /> Download Target Data
+                                        </a>
+                                    )}
                                 </div>
 
                                 {/* Flag Submission */}
